@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe_1_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nwv-ET-nrK">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="4e4-eJ-JoC"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Camera" id="GgT-em-BOl" userLabel="btnCamera">
+                                        <connections>
+                                            <action selector="pickImageFromCamera:" destination="BYZ-38-t0r" id="24j-Gu-r5K"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Album" id="28Q-U3-I6Z" userLabel="btnAlbum">
+                                        <connections>
+                                            <action selector="pickImageFromAlbum:" destination="BYZ-38-t0r" id="Tnk-rN-cWt"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qb6-Ms-8KE" userLabel="imgView">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="2iz-2y-iXP"/>
+                                    <constraint firstAttribute="height" constant="240" id="qJg-IA-V1t"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yLu-YL-aMM" userLabel="txtBottom">
+                                <frame key="frameInset" minX="140" minY="530" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIV-Ou-cwg" userLabel="txtTop">
+                                <frame key="frameInset" minX="140" minY="99" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Qb6-Ms-8KE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8LE-2B-uTB"/>
+                            <constraint firstItem="Nwv-ET-nrK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="1" id="Q0d-Fo-6Rq"/>
+                            <constraint firstItem="Qb6-Ms-8KE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SXQ-rz-Pyd"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Nwv-ET-nrK" secondAttribute="bottom" constant="1" id="Swn-mu-WEN"/>
+                            <constraint firstAttribute="trailing" secondItem="Nwv-ET-nrK" secondAttribute="trailing" constant="-1" id="TnG-5b-2b8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnAlbum" destination="28Q-U3-I6Z" id="dnb-bu-8X0"/>
+                        <outlet property="btnCamera" destination="GgT-em-BOl" id="1pd-V9-EN7"/>
+                        <outlet property="imgView" destination="Qb6-Ms-8KE" id="HYA-tI-3s3"/>
+                        <outlet property="txtBottom" destination="yLu-YL-aMM" id="of9-Oc-STv"/>
+                        <outlet property="txtTop" destination="AIV-Ou-cwg" id="0BY-Rv-9Bs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
