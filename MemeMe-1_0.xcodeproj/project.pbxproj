@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF88026D1DF1BBA9004504C0 /* TopTxtDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88026C1DF1BBA9004504C0 /* TopTxtDelegate.swift */; };
+		CF88026F1DF1BF24004504C0 /* BottomTxtDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88026E1DF1BF24004504C0 /* BottomTxtDelegate.swift */; };
 		CFD844DD1DEF689E009E05C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD844DC1DEF689E009E05C3 /* AppDelegate.swift */; };
 		CFD844DF1DEF689E009E05C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD844DE1DEF689E009E05C3 /* ViewController.swift */; };
 		CFD844E21DEF689E009E05C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFD844E01DEF689E009E05C3 /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF88026C1DF1BBA9004504C0 /* TopTxtDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTxtDelegate.swift; sourceTree = "<group>"; };
+		CF88026E1DF1BF24004504C0 /* BottomTxtDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTxtDelegate.swift; sourceTree = "<group>"; };
 		CFD844D91DEF689E009E05C3 /* MemeMe-1_0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MemeMe-1_0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD844DC1DEF689E009E05C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFD844DE1DEF689E009E05C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				CFD844E81DEF689E009E05C3 /* LaunchScreen.storyboard */,
 				CFD844EB1DEF689E009E05C3 /* Info.plist */,
 				CFD844E31DEF689E009E05C3 /* MemeMe_1_0.xcdatamodeld */,
+				CF88026C1DF1BBA9004504C0 /* TopTxtDelegate.swift */,
+				CF88026E1DF1BF24004504C0 /* BottomTxtDelegate.swift */,
 			);
 			path = "MemeMe-1_0";
 			sourceTree = "<group>";
@@ -139,7 +145,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF88026F1DF1BF24004504C0 /* BottomTxtDelegate.swift in Sources */,
 				CFD844DF1DEF689E009E05C3 /* ViewController.swift in Sources */,
+				CF88026D1DF1BBA9004504C0 /* TopTxtDelegate.swift in Sources */,
 				CFD844E51DEF689E009E05C3 /* MemeMe_1_0.xcdatamodeld in Sources */,
 				CFD844DD1DEF689E009E05C3 /* AppDelegate.swift in Sources */,
 			);

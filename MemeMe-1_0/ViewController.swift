@@ -11,24 +11,63 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
 
-
-    
     @IBOutlet weak var txtTop: UITextField!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var txtBottom: UITextField!
     @IBOutlet weak var btnCamera: UIBarButtonItem!
     @IBOutlet weak var btnAlbum: UIBarButtonItem!
+
+    let memeTxtAttributes:[String:Any] =
+    [
+        NSStrokeColorAttributeName: UIColor.black,
+        NSForegroundColorAttributeName: UIColor.white,
+        NSFontAttributeName: UIFont( name: "HelveticaNeue-CondensedBlack", size: 40 )!,
+        NSStrokeWidthAttributeName: NSNumber( value: 2.0 )
+    ]
+    
+    let topTxtDelegate = TopTxtDelegate()
+    let bottomTxtDelegate = BottomTxtDelegate()
     
     override func viewDidLoad()
     {
+        print( "ViewController::viewDidLoad()" )
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        txtTop.text = "Top"
-        txtBottom.text = "Bottom"
+
+        // Setup top meme text field
+        print( "At 1" )
+        txtTop.text = "TOP"
+        print( "At 2" )
+
+        txtTop.textAlignment = NSTextAlignment.center
+        
+        print( "At 3" )
+        
+
+        txtTop.defaultTextAttributes = memeTxtAttributes
+        print( "At 4" )
+
+        txtTop.delegate = topTxtDelegate
+        
+        // Setup bottom meme text field
+        print( "At 5" )
+
+        txtBottom.text = "BOTTOM"
+        print( "At 6" )
+
+        txtBottom.textAlignment = NSTextAlignment.center
+        print( "At 7" )
+
+        txtBottom.defaultTextAttributes = memeTxtAttributes
+        print( "At 8" )
+
+        txtBottom.delegate = bottomTxtDelegate
     }
     
     override func viewDidAppear(_ animated: Bool)
     {
+        print( "ViewController::viewDidAppear()" )
+        
         // Test if device has camera or not and enable/disable button accordingly
         btnCamera.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
@@ -36,12 +75,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // User cancelled instead of picking an image
     func imagePickerControllerDidCancel( _ picker: UIImagePickerController )
     {
+        print( "ViewController::imagePickerControllerDidCancel()" )
+
         dismiss( animated: true, completion: nil )
     }
 
     // User actually picked an image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
+        print( "ViewController::imagePickerController() - picked image Delegate" )
+
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
             imgView.contentMode = .scaleAspectFit
@@ -57,6 +100,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBAction func pickImageFromCamera(_ sender: AnyObject)
     {
+        print( "ViewController::pickImageFromCamera()" )
+
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.sourceType = UIImagePickerControllerSourceType.camera
@@ -66,6 +111,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func pickImageFromAlbum(_ sender: AnyObject)
     {
+        print( "ViewController::pickImageFromAlbum()" )
+
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
