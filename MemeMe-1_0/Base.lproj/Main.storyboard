@@ -33,12 +33,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qb6-Ms-8KE" userLabel="imgView">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="2iz-2y-iXP"/>
-                                    <constraint firstAttribute="height" constant="240" id="qJg-IA-V1t"/>
-                                </constraints>
-                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qb6-Ms-8KE" userLabel="imgView"/>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yLu-YL-aMM" userLabel="txtBottom">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <nil key="textColor"/>
@@ -71,9 +66,12 @@
                             <constraint firstItem="7KS-lD-ezb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="hqj-tb-zfD"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Nwv-ET-nrK" secondAttribute="bottom" id="mKA-Nk-fWR"/>
                             <constraint firstItem="Nwv-ET-nrK" firstAttribute="top" secondItem="yLu-YL-aMM" secondAttribute="bottom" constant="40" id="t1F-T8-lzV"/>
+                            <constraint firstItem="Qb6-Ms-8KE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="tAy-GK-0Yl"/>
                             <constraint firstItem="7KS-lD-ezb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tnk-MA-Ppv"/>
+                            <constraint firstItem="Nwv-ET-nrK" firstAttribute="top" secondItem="Qb6-Ms-8KE" secondAttribute="bottom" constant="20" id="uNC-gu-Q4E"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AIV-Ou-cwg" secondAttribute="trailing" constant="10" id="wJc-yW-a4I"/>
                             <constraint firstItem="AIV-Ou-cwg" firstAttribute="top" secondItem="7KS-lD-ezb" secondAttribute="bottom" constant="40" id="xaa-cj-0Ne"/>
+                            <constraint firstItem="Qb6-Ms-8KE" firstAttribute="top" secondItem="7KS-lD-ezb" secondAttribute="bottom" constant="20" id="z7A-hl-vGP"/>
                         </constraints>
                     </view>
                     <connections>

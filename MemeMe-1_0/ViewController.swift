@@ -65,6 +65,58 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         btnCamera.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
 
+    override func viewWillAppear(_ animated: Bool)
+    {
+        print( "ViewController::viewWillAppear()" )
+        
+        super.viewWillAppear( animated )
+        self.subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        print( "ViewController::viewWillDisappear()" )
+        
+        super.viewWillDisappear( animated )
+        unsubscribeFromKeyboardNotifications()
+    }
+    
+    // Keyboard shifting code
+    func subscribeToKeyboardNotifications()
+    {
+        NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil )
+        NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil )
+    }
+    
+    func unsubscribeFromKeyboardNotifications()
+    {
+        NotificationCenter.default.removeObserver( self, name: .UIKeyboardWillShow, object: nil )
+    }
+    
+    func keyboardWillShow(_ notification:Notification)
+    {
+        if txtBottom.isFirstResponder
+        {
+            view.frame.origin.y -= getKeyboardHeight( notification )
+        }
+    }
+    
+    func keyboardWillHide(_ notification:Notification)
+    {
+        if txtBottom.isFirstResponder
+        {
+            view.frame.origin.y = 0.0
+        }
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat
+    {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+    }
+    
+    // Image picker code
     // User cancelled instead of picking an image
     func imagePickerControllerDidCancel( _ picker: UIImagePickerController )
     {
