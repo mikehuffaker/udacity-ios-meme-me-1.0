@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
 
+    @IBOutlet weak var btnSocial: UIBarButtonItem!
+    @IBOutlet weak var btnCancel: UIBarButtonItem!
     @IBOutlet weak var txtTop: UITextField!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var txtBottom: UITextField!
@@ -22,39 +24,38 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont( name: "HelveticaNeue-CondensedBlack", size: 40 )!,
-        NSStrokeWidthAttributeName: NSNumber( value: -2.0 )
+        NSStrokeWidthAttributeName: NSNumber( value: -3.0 )
     ]
     
     let topTxtDelegate = TopTxtDelegate()
     let bottomTxtDelegate = BottomTxtDelegate()
+    
+    var theMeme: MemeImage!
     
     override func viewDidLoad()
     {
         print( "ViewController::viewDidLoad()" )
         
         super.viewDidLoad()
+        
+        // initially disable top toolbar items, until the user picks an image for a meme
+        btnSocial.isEnabled = false
+        btnCancel.isEnabled = false
 
         // Setup top meme text field
-        print( "At 1" )
-
         txtTop.defaultTextAttributes = memeTxtAttributes
         txtTop.textAlignment = NSTextAlignment.center
         txtTop.text = "TOP"
-
-        print( "At 4" )
-
         txtTop.delegate = topTxtDelegate
         
         // Setup bottom meme text field
-        print( "At 5" )
-
         txtBottom.defaultTextAttributes = memeTxtAttributes
         txtBottom.textAlignment = NSTextAlignment.center
         txtBottom.text = "BOTTOM"
-
-        print( "At 8" )
-
         txtBottom.delegate = bottomTxtDelegate
+        
+        // Setting Aspect Fit so image expands and fits the screen
+        imgView.contentMode = UIViewContentMode.scaleAspectFit
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -107,6 +108,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         {
             view.frame.origin.y = 0.0
         }
+        
+        //if ( imgView.image != nil )
+        //{
+        //    generateMemedImage()
+        //}
     }
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat
@@ -134,6 +140,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         {
             imgView.contentMode = .scaleAspectFit
             imgView.image = image
+            btnSocial.isEnabled = true
         }
         else
         {
@@ -163,6 +170,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         pickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
         self.present( pickerController, animated: true, completion: nil )
+    }
+    
+    // Meme processing code 
+    
+    // generate and save a new Memed image
+    func generateMemedImage()
+    {
+        UIGraphicsBeginImageContext( self.view.frame.size )
+        view.drawHierarchy( in: self.view.frame, afterScreenUpdates: true )
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        theMeme = MemeImage.init( topText: txtTop.text!, bottomText: txtBottom.text!, origImage: imgView.image!, memedImage: memedImage )
+        
+        return
     }
 }
 

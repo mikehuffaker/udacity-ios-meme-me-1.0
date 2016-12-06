@@ -21,16 +21,19 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nwv-ET-nrK" userLabel="imgToolbar">
                                 <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="CXN-u0-Pnp"/>
                                     <barButtonItem systemItem="camera" id="GgT-em-BOl" userLabel="btnCamera">
                                         <connections>
                                             <action selector="pickImageFromCamera:" destination="BYZ-38-t0r" id="24j-Gu-r5K"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0BJ-TQ-9UN"/>
                                     <barButtonItem title="Album" id="28Q-U3-I6Z" userLabel="btnAlbum">
                                         <connections>
                                             <action selector="pickImageFromAlbum:" destination="BYZ-38-t0r" id="Tnk-rN-cWt"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="JxY-Il-Fdk"/>
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qb6-Ms-8KE" userLabel="imgView"/>
@@ -65,18 +68,20 @@
                             <constraint firstAttribute="trailingMargin" secondItem="yLu-YL-aMM" secondAttribute="trailing" constant="10" id="gQ3-6i-fVX"/>
                             <constraint firstItem="7KS-lD-ezb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="hqj-tb-zfD"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Nwv-ET-nrK" secondAttribute="bottom" id="mKA-Nk-fWR"/>
-                            <constraint firstItem="Nwv-ET-nrK" firstAttribute="top" secondItem="yLu-YL-aMM" secondAttribute="bottom" constant="40" id="t1F-T8-lzV"/>
+                            <constraint firstItem="Nwv-ET-nrK" firstAttribute="top" secondItem="yLu-YL-aMM" secondAttribute="bottom" constant="50" id="t1F-T8-lzV"/>
                             <constraint firstItem="Qb6-Ms-8KE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="tAy-GK-0Yl"/>
                             <constraint firstItem="7KS-lD-ezb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tnk-MA-Ppv"/>
                             <constraint firstItem="Nwv-ET-nrK" firstAttribute="top" secondItem="Qb6-Ms-8KE" secondAttribute="bottom" constant="20" id="uNC-gu-Q4E"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AIV-Ou-cwg" secondAttribute="trailing" constant="10" id="wJc-yW-a4I"/>
-                            <constraint firstItem="AIV-Ou-cwg" firstAttribute="top" secondItem="7KS-lD-ezb" secondAttribute="bottom" constant="40" id="xaa-cj-0Ne"/>
+                            <constraint firstItem="AIV-Ou-cwg" firstAttribute="top" secondItem="7KS-lD-ezb" secondAttribute="bottom" constant="50" id="xaa-cj-0Ne"/>
                             <constraint firstItem="Qb6-Ms-8KE" firstAttribute="top" secondItem="7KS-lD-ezb" secondAttribute="bottom" constant="20" id="z7A-hl-vGP"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btnAlbum" destination="28Q-U3-I6Z" id="dnb-bu-8X0"/>
                         <outlet property="btnCamera" destination="GgT-em-BOl" id="1pd-V9-EN7"/>
+                        <outlet property="btnCancel" destination="EoI-FS-M21" id="rlK-38-XU3"/>
+                        <outlet property="btnSocial" destination="HpV-ga-uKv" id="7xs-Ao-bvt"/>
                         <outlet property="imgView" destination="Qb6-Ms-8KE" id="HYA-tI-3s3"/>
                         <outlet property="txtBottom" destination="yLu-YL-aMM" id="of9-Oc-STv"/>
                         <outlet property="txtTop" destination="AIV-Ou-cwg" id="0BY-Rv-9Bs"/>

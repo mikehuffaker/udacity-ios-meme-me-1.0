@@ -1,5 +1,5 @@
 //
-//  Meme.swift
+//  MemeImage.swift
 //  MemeMe-1_0
 //
 //  Created by Mike Huffaker on 12/6/16.
