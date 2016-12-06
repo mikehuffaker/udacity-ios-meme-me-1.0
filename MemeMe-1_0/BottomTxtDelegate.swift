@@ -11,22 +11,26 @@ import UIKit
 
 class BottomTxtDelegate : NSObject, UITextFieldDelegate
 {
-    //func textFieldDidBeginEditing(_ textField: UITextField)
-    //{
-     //   print( "BottomTxtFieldDelegate::textFieldDidBeginEditing()")
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        print( "BottomTxtFieldDelegate::textFieldDidBeginEditing()")
         
         // Only if the text field has is initial value, then null
         // out when the user starts editing
-        //if textField.text != nil && textField.text == "BOTTOM"
-        //{
-        //    print( "Before")
-
-        //    textField.text?.removeAll()
-        //    print( "After")
-
-        //}
-    //    textField.text = ""
-    //}
+        print( "Before If")
+        if textField.text == "BOTTOM"
+        {
+            print( "Inside If")
+            
+            textField.text = ""
+            print( "Text Field cleared")
+            
+        }
+        
+        print( "Exiting textFieldDidBeginEditing")
+        
+        return
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {

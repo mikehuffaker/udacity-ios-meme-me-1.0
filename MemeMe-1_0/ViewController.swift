@@ -22,7 +22,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont( name: "HelveticaNeue-CondensedBlack", size: 40 )!,
-        NSStrokeWidthAttributeName: NSNumber( value: 2.0 )
+        NSStrokeWidthAttributeName: NSNumber( value: -2.0 )
     ]
     
     let topTxtDelegate = TopTxtDelegate()
@@ -36,15 +36,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         // Setup top meme text field
         print( "At 1" )
-        txtTop.text = "TOP"
-        print( "At 2" )
-
-        txtTop.textAlignment = NSTextAlignment.center
-        
-        print( "At 3" )
-        
 
         txtTop.defaultTextAttributes = memeTxtAttributes
+        txtTop.textAlignment = NSTextAlignment.center
+        txtTop.text = "TOP"
+
         print( "At 4" )
 
         txtTop.delegate = topTxtDelegate
@@ -52,13 +48,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Setup bottom meme text field
         print( "At 5" )
 
-        txtBottom.text = "BOTTOM"
-        print( "At 6" )
-
-        txtBottom.textAlignment = NSTextAlignment.center
-        print( "At 7" )
-
         txtBottom.defaultTextAttributes = memeTxtAttributes
+        txtBottom.textAlignment = NSTextAlignment.center
+        txtBottom.text = "BOTTOM"
+
         print( "At 8" )
 
         txtBottom.delegate = bottomTxtDelegate
