@@ -85,17 +85,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Keyboard shifting code
     func subscribeToKeyboardNotifications()
     {
+        print( "ViewController::subscribeToKeyboardNotifications()" )
+
         NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil )
         NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil )
     }
     
     func unsubscribeFromKeyboardNotifications()
     {
+        print( "ViewController::unsubscribeFromKeyboardNotifications()" )
+
         NotificationCenter.default.removeObserver( self, name: .UIKeyboardWillShow, object: nil )
     }
     
     func keyboardWillShow(_ notification:Notification)
     {
+        print( "ViewController::keyboardWillShow()" )
+
         if txtBottom.isFirstResponder
         {
             view.frame.origin.y -= getKeyboardHeight( notification )
@@ -104,19 +110,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func keyboardWillHide(_ notification:Notification)
     {
+        print( "ViewController::keyboardWillHide()" )
+
         if txtBottom.isFirstResponder
         {
             view.frame.origin.y = 0.0
         }
-        
-        //if ( imgView.image != nil )
-        //{
-        //    generateMemedImage()
-        //}
     }
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat
     {
+        print( "ViewController::getKeyboardHeight()" )
+
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
@@ -141,6 +146,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imgView.contentMode = .scaleAspectFit
             imgView.image = image
             btnSocial.isEnabled = true
+            btnCancel.isEnabled = true
         }
         else
         {
@@ -172,19 +178,60 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.present( pickerController, animated: true, completion: nil )
     }
     
-    // Meme processing code 
+    // User pressed cancel, reset application
+    
+    @IBAction func cancelMeme(_ sender: AnyObject)
+    {
+        txtTop.text = "TOP"
+        txtBottom.text = "BOTTOM"
+        imgView.image = nil
+        
+        // per Apple docs, I think this is ok, it will set the structures reference to nil
+        // and via ARC functionallity, memory will be freed up automatically, similar to Java
+        // garbage collection.
+        theMeme = nil
+    }
+    
+    // Meme sharing/processing code
+    
+    @IBAction func shareMeme(_ sender: AnyObject)
+    {
+        let memedImage = generateMemedImage()
+        let socialController = UIActivityViewController( activityItems: [memedImage], applicationActivities: nil )
+
+        socialController.completionWithItemsHandler =
+        {
+            activityType, completion, items, error in
+            
+            if completion
+            {
+                print ( "User performed activity:" + activityType!.rawValue )
+                // Save meme
+                self.theMeme = MemeImage.init( topText: self.txtTop.text!, bottomText: self.txtBottom.text!, origImage: self.imgView.image!, memedImage: memedImage )
+            }
+            else
+            {
+                print ( "User cancelled or other error" )
+            }
+            
+        }
+        
+        self.present( socialController, animated: true, completion: nil )
+        
+    }
+    
     
     // generate and save a new Memed image
-    func generateMemedImage()
+    func generateMemedImage() -> UIImage
     {
         UIGraphicsBeginImageContext( self.view.frame.size )
         view.drawHierarchy( in: self.view.frame, afterScreenUpdates: true )
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        theMeme = MemeImage.init( topText: txtTop.text!, bottomText: txtBottom.text!, origImage: imgView.image!, memedImage: memedImage )
+        //theMeme = MemeImage.init( topText: txtTop.text!, bottomText: txtBottom.text!, origImage: imgView.image!, memedImage: memedImage )
         
-        return
+        return memedImage
     }
 }
 
