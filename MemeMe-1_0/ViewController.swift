@@ -31,7 +31,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont( name: "HelveticaNeue-CondensedBlack", size: 40 )!,
-        NSStrokeWidthAttributeName: NSNumber( value: -3.0 )
+        NSStrokeWidthAttributeName: NSNumber( value: -4.0 )
     ]
     
     let topTxtDelegate = TopTxtDelegate()
