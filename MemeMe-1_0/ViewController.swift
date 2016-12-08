@@ -11,11 +11,18 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
 
+    // Top toolbar and buttons
+    @IBOutlet weak var tbSocial: UIToolbar!
     @IBOutlet weak var btnSocial: UIBarButtonItem!
     @IBOutlet weak var btnCancel: UIBarButtonItem!
+    
+    // Text fields and image
     @IBOutlet weak var txtTop: UITextField!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var txtBottom: UITextField!
+    
+    // Bottom toolbar and buttons
+    @IBOutlet weak var tbImage: UIToolbar!
     @IBOutlet weak var btnCamera: UIBarButtonItem!
     @IBOutlet weak var btnAlbum: UIBarButtonItem!
 
@@ -38,9 +45,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         super.viewDidLoad()
         
-        // initially disable top toolbar items, until the user picks an image for a meme
+        // initially disable top toolbar share button, until the user picks an image for a meme
         btnSocial.isEnabled = false
-        btnCancel.isEnabled = false
+        //btnCancel.isEnabled = false
 
         // Setup top meme text field
         txtTop.defaultTextAttributes = memeTxtAttributes
@@ -72,6 +79,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         super.viewWillAppear( animated )
         self.subscribeToKeyboardNotifications()
+        
+        //tbSocial.barTintColor = UIColor.lightGray
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -85,7 +94,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Keyboard shifting code
     func subscribeToKeyboardNotifications()
     {
-        print( "ViewController::subscribeToKeyboardNotifications()" )
+    print( "ViewController::subscribeToKeyboardNotifications()" )
 
         NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil )
         NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil )
@@ -127,7 +136,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return keyboardSize.cgRectValue.height
     }
     
-    // Image picker code
+    // Image picker code section
+    
     // User cancelled instead of picking an image
     func imagePickerControllerDidCancel( _ picker: UIImagePickerController )
     {
@@ -179,9 +189,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // User pressed cancel, reset application
-    
     @IBAction func cancelMeme(_ sender: AnyObject)
     {
+        print( "ViewController::cancelMeme()" )
+
+        btnSocial.isEnabled = false
         txtTop.text = "TOP"
         txtBottom.text = "BOTTOM"
         imgView.image = nil
@@ -194,8 +206,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Meme sharing/processing code
     
+    // generate and then share the meme by launching the activity view
     @IBAction func shareMeme(_ sender: AnyObject)
     {
+        print( "ViewController::shareMeme()" )
+        
         let memedImage = generateMemedImage()
         let socialController = UIActivityViewController( activityItems: [memedImage], applicationActivities: nil )
 
@@ -207,31 +222,46 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             {
                 print ( "User performed activity:" + activityType!.rawValue )
                 // Save meme
-                self.theMeme = MemeImage.init( topText: self.txtTop.text!, bottomText: self.txtBottom.text!, origImage: self.imgView.image!, memedImage: memedImage )
+                self.saveMemedImage( memedImage: memedImage )
             }
             else
             {
                 print ( "User cancelled or other error" )
             }
             
+            self.dismiss( animated: true, completion: nil )
         }
         
         self.present( socialController, animated: true, completion: nil )
-        
     }
     
-    
-    // generate and save a new Memed image
+    // generate a new Memed image
     func generateMemedImage() -> UIImage
     {
+        print( "ViewController::generateMemedImage()" )
+        
+        tbSocial.isHidden = true
+        tbImage.isHidden = true
+        
         UIGraphicsBeginImageContext( self.view.frame.size )
         view.drawHierarchy( in: self.view.frame, afterScreenUpdates: true )
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
-        //theMeme = MemeImage.init( topText: txtTop.text!, bottomText: txtBottom.text!, origImage: imgView.image!, memedImage: memedImage )
-        
+
+        tbSocial.isHidden = false
+        tbImage.isHidden = false
+
         return memedImage
+    }
+    
+    // Note - slight variation on lesson example - memed image is local to calling function,
+    // But other values are already objects in the view controller class, so I think
+    // its better to pass in the memedImage as it is not a class variable at this point.
+    func saveMemedImage( memedImage: UIImage )
+    {
+        print( "ViewController::saveMemedImage()" )
+        
+        self.theMeme = MemeImage.init( topText: self.txtTop.text!, bottomText: self.txtBottom.text!, origImage: self.imgView.image!, memedImage: memedImage )
     }
 }
 
