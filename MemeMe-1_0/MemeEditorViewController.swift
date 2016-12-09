@@ -176,22 +176,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     {
         print( "MemeEditorViewController::pickImageFromCamera()" )
 
-        //let pickerController = UIImagePickerController()
-        //pickerController.delegate = self
-        //pickerController.sourceType = UIImagePickerControllerSourceType.camera
         pickImageProcessing( sourceType: UIImagePickerControllerSourceType.camera )
-        //self.present( pickerController, animated: true, completion: nil )
     }
     
     @IBAction func pickImageFromAlbum(_ sender: AnyObject)
     {
         print( "MemeEditorViewController::pickImageFromAlbum()" )
 
-        //let pickerController = UIImagePickerController()
-        //pickerController.delegate = self
-        //pickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
         pickImageProcessing( sourceType: UIImagePickerControllerSourceType.photoLibrary )
-        //self.present( pickerController, animated: true, completion: nil )
     }
     
     func pickImageProcessing ( sourceType: UIImagePickerControllerSourceType )
