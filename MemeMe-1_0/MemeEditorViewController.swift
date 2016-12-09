@@ -41,27 +41,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad()
     {
-        print( "ViewController::viewDidLoad()" )
+        print( "MemeEditorViewController::viewDidLoad()" )
         
         super.viewDidLoad()
         
         // initially disable top toolbar share button, until the user picks an image for a meme
         btnSocial.isEnabled = false
-        //btnCancel.isEnabled = false
 
         // Setup top meme text field
         initializeTextFields( textField: txtTop, initialText: "TOP", delegate: topTxtDelegate )
-        //txtTop.defaultTextAttributes = memeTxtAttributes
-        //txtTop.textAlignment = NSTextAlignment.center
-        //txtTop.text = "TOP"
-        //txtTop.delegate = topTxtDelegate
         
         // Setup bottom meme text field
         initializeTextFields( textField: txtBottom, initialText: "BOTTOM", delegate: bottomTxtDelegate )
-        //txtBottom.defaultTextAttributes = memeTxtAttributes
-        //txtBottom.textAlignment = NSTextAlignment.center
-        //txtBottom.text = "BOTTOM"
-        //txtBottom.delegate = bottomTxtDelegate
         
         // Setting Aspect Fit so image expands and fits the screen
         imgView.contentMode = UIViewContentMode.scaleAspectFit
@@ -69,7 +60,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidAppear(_ animated: Bool)
     {
-        print( "ViewController::viewDidAppear()" )
+        print( "MemeEditorViewController::viewDidAppear()" )
         
         // Test if device has camera or not and enable/disable button accordingly
         btnCamera.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
@@ -77,17 +68,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
     override func viewWillAppear(_ animated: Bool)
     {
-        print( "ViewController::viewWillAppear()" )
+        print( "MemeEditorViewController::viewWillAppear()" )
         
         super.viewWillAppear( animated )
-        self.subscribeToKeyboardNotifications()
-        
-        //tbSocial.barTintColor = UIColor.lightGray
+        self.subscribeToKeyboardNotifications()        
     }
     
     override func viewWillDisappear(_ animated: Bool)
     {
-        print( "ViewController::viewWillDisappear()" )
+        print( "MemeEditorViewController::viewWillDisappear()" )
         
         super.viewWillDisappear( animated )
         unsubscribeFromKeyboardNotifications()
@@ -98,6 +87,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // Method to init text fields
     func initializeTextFields ( textField: UITextField, initialText: String, delegate: UITextFieldDelegate )
     {
+        print( "MemeEditorViewController::initializeTextFields()" )
+        
         textField.defaultTextAttributes = memeTxtAttributes
         textField.textAlignment = NSTextAlignment.center
         textField.text = initialText
@@ -107,7 +98,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // Keyboard shifting code
     func subscribeToKeyboardNotifications()
     {
-    print( "ViewController::subscribeToKeyboardNotifications()" )
+    print( "MemeEditorViewController::subscribeToKeyboardNotifications()" )
 
         NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil )
         NotificationCenter.default.addObserver( self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil )
@@ -115,7 +106,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func unsubscribeFromKeyboardNotifications()
     {
-        print( "ViewController::unsubscribeFromKeyboardNotifications()" )
+        print( "MemeEditorViewController::unsubscribeFromKeyboardNotifications()" )
 
         NotificationCenter.default.removeObserver( self, name: .UIKeyboardWillShow, object: nil )
         NotificationCenter.default.removeObserver( self, name: .UIKeyboardWillHide, object: nil )
@@ -123,7 +114,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func keyboardWillShow(_ notification:Notification)
     {
-        print( "ViewController::keyboardWillShow()" )
+        print( "MemeEditorViewController::keyboardWillShow()" )
 
         if txtBottom.isFirstResponder
         {
@@ -134,7 +125,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func keyboardWillHide(_ notification:Notification)
     {
-        print( "ViewController::keyboardWillHide()" )
+        print( "MemeEditorViewController::keyboardWillHide()" )
 
         if txtBottom.isFirstResponder
         {
@@ -144,7 +135,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat
     {
-        print( "ViewController::getKeyboardHeight()" )
+        print( "MemeEditorViewController::getKeyboardHeight()" )
 
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
@@ -156,7 +147,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // User cancelled instead of picking an image
     func imagePickerControllerDidCancel( _ picker: UIImagePickerController )
     {
-        print( "ViewController::imagePickerControllerDidCancel()" )
+        print( "MemeEditorViewController::imagePickerControllerDidCancel()" )
 
         dismiss( animated: true, completion: nil )
     }
@@ -164,7 +155,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // User actually picked an image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
-        print( "ViewController::imagePickerController() - picked image Delegate" )
+        print( "MemeEditorViewController::imagePickerController() - picked image Delegate" )
 
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
@@ -175,7 +166,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         }
         else
         {
-            print( "ViewController::imagePickerController: error passing picked image to view controller image." )
+            print( "MemeEditorViewController::imagePickerController: error passing picked image to view controller image." )
         }
         
         dismiss( animated: true, completion: nil )
@@ -183,22 +174,33 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
     @IBAction func pickImageFromCamera(_ sender: AnyObject)
     {
-        print( "ViewController::pickImageFromCamera()" )
+        print( "MemeEditorViewController::pickImageFromCamera()" )
 
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = UIImagePickerControllerSourceType.camera
-        
-        self.present( pickerController, animated: true, completion: nil )
+        //let pickerController = UIImagePickerController()
+        //pickerController.delegate = self
+        //pickerController.sourceType = UIImagePickerControllerSourceType.camera
+        pickImageProcessing( sourceType: UIImagePickerControllerSourceType.camera )
+        //self.present( pickerController, animated: true, completion: nil )
     }
     
     @IBAction func pickImageFromAlbum(_ sender: AnyObject)
     {
-        print( "ViewController::pickImageFromAlbum()" )
+        print( "MemeEditorViewController::pickImageFromAlbum()" )
 
+        //let pickerController = UIImagePickerController()
+        //pickerController.delegate = self
+        //pickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        pickImageProcessing( sourceType: UIImagePickerControllerSourceType.photoLibrary )
+        //self.present( pickerController, animated: true, completion: nil )
+    }
+    
+    func pickImageProcessing ( sourceType: UIImagePickerControllerSourceType )
+    {
+        print( "MemeEditorViewController::pickImageProcessing()" )
+        
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        pickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        pickerController.sourceType = sourceType
         
         self.present( pickerController, animated: true, completion: nil )
     }
@@ -206,7 +208,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // User pressed cancel, reset application
     @IBAction func cancelMeme(_ sender: AnyObject)
     {
-        print( "ViewController::cancelMeme()" )
+        print( "MemeEditorViewController::cancelMeme()" )
 
         btnSocial.isEnabled = false
         txtTop.text = "TOP"
@@ -224,7 +226,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // generate and then share the meme by launching the activity view
     @IBAction func shareMeme(_ sender: AnyObject)
     {
-        print( "ViewController::shareMeme()" )
+        print( "MemeEditorViewController::shareMeme()" )
         
         let memedImage = generateMemedImage()
         let socialController = UIActivityViewController( activityItems: [memedImage], applicationActivities: nil )
@@ -253,7 +255,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // generate a new Memed image
     func generateMemedImage() -> UIImage
     {
-        print( "ViewController::generateMemedImage()" )
+        print( "MemeEditorViewController::generateMemedImage()" )
         
         tbSocial.isHidden = true
         tbImage.isHidden = true
@@ -274,7 +276,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // its better to pass in the memedImage as it is not a class variable at this point.
     func saveMemedImage( memedImage: UIImage )
     {
-        print( "ViewController::saveMemedImage()" )
+        print( "MemeEditorViewController::saveMemedImage()" )
         
         self.theMeme = MemeImage.init( topText: self.txtTop.text!, bottomText: self.txtBottom.text!, origImage: self.imgView.image!, memedImage: memedImage )
     }

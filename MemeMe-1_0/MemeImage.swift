@@ -16,13 +16,5 @@ struct MemeImage
     var bottomText: String
     var origImage: UIImage
     var memedImage: UIImage
-    
-    init( topText text1: String, bottomText text2: String, origImage image1: UIImage, memedImage image2: UIImage )
-    {
-        topText = text1
-        bottomText = text2
-        origImage = image1
-        memedImage = image2
-    }
 }
 
