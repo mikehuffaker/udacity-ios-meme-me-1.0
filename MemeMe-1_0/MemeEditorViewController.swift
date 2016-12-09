@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
 
     // Top toolbar and buttons
@@ -50,16 +50,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //btnCancel.isEnabled = false
 
         // Setup top meme text field
-        txtTop.defaultTextAttributes = memeTxtAttributes
-        txtTop.textAlignment = NSTextAlignment.center
-        txtTop.text = "TOP"
-        txtTop.delegate = topTxtDelegate
+        initializeTextFields( textField: txtTop, initialText: "TOP", delegate: topTxtDelegate )
+        //txtTop.defaultTextAttributes = memeTxtAttributes
+        //txtTop.textAlignment = NSTextAlignment.center
+        //txtTop.text = "TOP"
+        //txtTop.delegate = topTxtDelegate
         
         // Setup bottom meme text field
-        txtBottom.defaultTextAttributes = memeTxtAttributes
-        txtBottom.textAlignment = NSTextAlignment.center
-        txtBottom.text = "BOTTOM"
-        txtBottom.delegate = bottomTxtDelegate
+        initializeTextFields( textField: txtBottom, initialText: "BOTTOM", delegate: bottomTxtDelegate )
+        //txtBottom.defaultTextAttributes = memeTxtAttributes
+        //txtBottom.textAlignment = NSTextAlignment.center
+        //txtBottom.text = "BOTTOM"
+        //txtBottom.delegate = bottomTxtDelegate
         
         // Setting Aspect Fit so image expands and fits the screen
         imgView.contentMode = UIViewContentMode.scaleAspectFit
@@ -91,6 +93,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         unsubscribeFromKeyboardNotifications()
     }
     
+    // Initialization code
+
+    // Method to init text fields
+    func initializeTextFields ( textField: UITextField, initialText: String, delegate: UITextFieldDelegate )
+    {
+        textField.defaultTextAttributes = memeTxtAttributes
+        textField.textAlignment = NSTextAlignment.center
+        textField.text = initialText
+        textField.delegate = delegate
+    }
+    
     // Keyboard shifting code
     func subscribeToKeyboardNotifications()
     {
@@ -105,6 +118,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print( "ViewController::unsubscribeFromKeyboardNotifications()" )
 
         NotificationCenter.default.removeObserver( self, name: .UIKeyboardWillShow, object: nil )
+        NotificationCenter.default.removeObserver( self, name: .UIKeyboardWillHide, object: nil )
     }
     
     func keyboardWillShow(_ notification:Notification)
@@ -113,7 +127,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         if txtBottom.isFirstResponder
         {
-            view.frame.origin.y -= getKeyboardHeight( notification )
+            // Updated to use * -1 per code review and post on Udacity forums.
+            view.frame.origin.y = getKeyboardHeight( notification ) * -1
         }
     }
     
